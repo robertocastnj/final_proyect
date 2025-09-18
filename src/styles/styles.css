@@ -1,0 +1,15 @@
+.inc_button {
+  background-color: #f0f0f0;
+  border-style: solid;
+  cursor: pointer;
+  border-width: 1px;
+  font-size: 0.8rem;
+  height: 1.4rem;
+  width: 1.4rem;
+  border-radius: var(--radius-sm);
+}
+@property --tw-border-style {
+  syntax: '*';
+  inherits: false;
+  initial-value: solid;
+}

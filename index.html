@@ -12,7 +12,7 @@
     <!-- Modal -->
     <div
       id="modal"
-      class="fixed w-full h-full bg-black/50 flex items-start sm:items-center justify-center"
+      class="fixed w-full h-full bg-black/50 hidden flex items-start sm:items-center justify-center"
     >
       <div
         id=""
@@ -21,7 +21,7 @@
         <!-- Modal header -->
         <header class="flex flex-row justify-between items-center sm:hidden">
           <span class="text-[0.8rem] font-semibold">Edit your search</span>
-          <button>
+          <button id="header_button">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -61,10 +61,15 @@
             <div
               class="flex flex-col outline-none w-full h-full pl-3 p-2 cursor-pointer sm:w-[50%]"
             >
-              <label for="miInput" class="text-[0.6rem] font-bold"
+              <label for="guestInput" class="text-[0.6rem] font-bold"
                 >GUESTS</label
               >
-              <span class="outline-none text-[1rem] text-black">5 guests</span>
+              <input
+                id="guestInput"
+                readonly
+                class="outline-none w-full"
+                placeholder="Add guests"
+              />
             </div>
           </div>
           <!-- Search button -->
@@ -120,7 +125,7 @@
           </div>
         </div>
         <!-- Guests information -->
-        <div class="hidden">
+        <div id="guestDropdownContainer" class="hidden">
           <!-- Adults Guests information -->
           <div class="flex flex-col gap-1.5">
             <span class="text-[0.9rem] font-bold">Adults</span>
@@ -144,7 +149,7 @@
             </div>
           </div>
           <!-- Search button -->
-          <div class="w-full flex items-center justify-center">
+          <div id="searchBtn" class="w-full flex items-center justify-center">
             <button
               class="w-[30%] flex flex-row items-center cursor-pointer justify-center gap-2 bg-[#EB5757] text-white text-[0.8rem] p-1 mt-[20%] rounded-2xl"
             >
@@ -187,17 +192,17 @@
       >
         <div class="flex items-center shadow-md rounded-xl w-[100%] h-full">
           <button
-            class="border-r-1 border-[#DDDDDD] outline-none w-[40%] h-full pl-1 cursor-pointer"
+            class="search-bar-button border-r-1 border-[#DDDDDD] outline-none w-[40%] h-full pl-1 cursor-pointer"
           >
             Add location
           </button>
           <button
-            class="border-r-1 border-[#DDDDDD] outline-none w-[40%] h-full pl-1 cursor-pointer"
+            class="search-bar-button border-r-1 border-[#DDDDDD] outline-none w-[40%] h-full pl-1 cursor-pointer"
           >
             Add guests
           </button>
           <button
-            class="w-[20%] h-full flex items-center justify-center cursor-pointer"
+            class="search-bar-button w-[20%] h-full flex items-center justify-center cursor-pointer"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

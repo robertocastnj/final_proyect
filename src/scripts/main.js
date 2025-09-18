@@ -1,15 +1,17 @@
-/**
- * Aquí estará la lógica principal de la aplicación.
- * Este bloque de código contiene la funcionalidad principal
- * que define el comportamiento del programa.
- */
-import { getInfo, renderCards } from './utils.js'
+import {
+  getInfo,
+  renderCards,
+  setupModalHandlers,
+  setupLocationDropdown,
+} from "./utils.js";
 
-let staysArray = []
+let staysArray = [];
 
 const main = async () => {
-  staysArray = await getInfo() // traemos todos los stays
-  renderCards(staysArray) // renderizamos inicialmente
-}
+  staysArray = await getInfo();
+  renderCards(staysArray);
+};
 
-main()
+main();
+setupModalHandlers();
+setupLocationDropdown();

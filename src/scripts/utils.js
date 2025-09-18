@@ -3,16 +3,16 @@
  * Este archivo contiene funciones auxiliares que serán utilizadas y llamadas
  * desde el archivo principal para realizar varias operaciones.
  */
-import { stays } from './stays.js'
+import { stays } from "./stays.js";
 
 const getInfo = async () => {
-  return stays
-}
+  return stays;
+};
 
 const fillCrads = (data) => {
-  const { superHost, title, rating, type, beds = `No Info`, photo } = data
-  const card = document.createElement('div')
-  card.classList = `flex flex-col gap-2`
+  const { superHost, title, rating, type, beds = `No Info`, photo } = data;
+  const card = document.createElement("div");
+  card.classList = `flex flex-col gap-2`;
   card.innerHTML = `
     <img
           src=${photo}
@@ -22,12 +22,12 @@ const fillCrads = (data) => {
         ${
           superHost
             ? `<span class="bg-gray-100 text-[0.7rem] w-min p-1 rounded-2xl">Superhost</span>`
-            : ''
+            : ""
         }
         <div
           class="flex justify-between items-center text-sm text-gray-500 mt-1"
         >
-          <span>${type} · ${beds ?? 'No Info'} beds</span>
+          <span>${type} · ${beds ?? "No Info"} beds</span>
           <div class="flex flex-row gap-1">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -49,19 +49,145 @@ const fillCrads = (data) => {
         <h3 class="mt-1 font-semibold">
           ${title}
         </h3>
-  `
-  return card
-}
+  `;
+  return card;
+};
 
 const renderCards = async (staysArray) => {
-  const container = document.getElementById('cardsContainer')
-  if (!container) return console.error(`No se encontró el contenedor`)
+  const container = document.getElementById("cardsContainer");
+  if (!container) return console.error(`No se encontró el contenedor`);
 
-  container.innerHTML = ''
+  container.innerHTML = "";
   staysArray.forEach((stay) => {
-    const card = fillCrads(stay)
-    container.appendChild(card)
-  })
+    const card = fillCrads(stay);
+    container.appendChild(card);
+  });
+};
+
+/* Arir y cerrar el modal */
+
+function setupModalHandlers() {
+  const modal = document.getElementById("modal");
+  const modalContent = modal.querySelector("div.bg-white");
+  const searchButtons = document.querySelectorAll(".search-bar-button");
+  const closeModalButton = document.getElementById("header_button");
+
+  /* Mostrar modal */
+  searchButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      modal.classList.remove("hidden");
+    });
+  });
+
+  /* Cerrar modal con botón */
+  if (closeModalButton) {
+    closeModalButton.addEventListener("click", () => {
+      modal.classList.add("hidden");
+    });
+  }
+
+  // Después (evita cerrar si interactúas con inputs o dropdowns):
+  modal.addEventListener("click", (e) => {
+    const isInside = modalContent.contains(e.target);
+    const isButtonOrInput = ["BUTTON", "INPUT", "SPAN", "SVG", "PATH"].includes(
+      e.target.tagName
+    );
+    if (!isInside || (!isInside && !isButtonOrInput)) {
+      modal.classList.add("hidden");
+    }
+  });
 }
 
-export { getInfo, renderCards }
+/* Filtro ciudades en modal */
+
+function setupLocationDropdown() {
+  const input = document.getElementById("miInput");
+  const parent = input.parentElement;
+
+  /* Obtenemos ciudades únicas */
+  const cities = [...new Set(stays.map((stay) => stay.city))];
+
+  /*   Crear lista visible de sugerencias */
+  const dropdown = document.createElement("ul");
+  dropdown.classList.add(
+    "absolute",
+    "bg-white",
+    "rounded-lg",
+    "mt-2",
+    "shadow-lg",
+    "w-full",
+    "z-50",
+    "text-sm",
+    "max-h-60",
+    "overflow-y-auto"
+  );
+  dropdown.style.top = "100%";
+  parent.style.position = "relative";
+
+  parent.appendChild(dropdown);
+
+  const updateDropdown = (filter = "") => {
+    dropdown.innerHTML = "";
+
+    const filtered = cities.filter((city) =>
+      city.toLowerCase().includes(filter.toLowerCase())
+    );
+
+    if (filtered.length === 0) {
+      const noMatch = document.createElement("li");
+      noMatch.textContent = "No matches found";
+      noMatch.classList.add("px-4", "py-2", "text-red-500");
+      dropdown.appendChild(noMatch);
+      return;
+    }
+
+    filtered.forEach((city) => {
+      const li = document.createElement("li");
+      li.classList.add(
+        "flex",
+        "items-center",
+        "gap-2",
+        "px-4",
+        "py-2",
+        "hover:bg-gray-100",
+        "cursor-pointer"
+      );
+      li.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c1.657 0 3-1.343 3-3S13.657 5 12 5 9 6.343 9 8s1.343 3 3 3zm0 0v10" />
+        </svg>
+        <span>${city}, Finland</span>
+      `;
+
+      li.addEventListener("click", () => {
+        input.value = city;
+        dropdown.innerHTML = "";
+
+        /* Filtramos y renderizamos */
+        const filteredStays = stays.filter((stay) => stay.city === city);
+        renderCards(filteredStays);
+      });
+
+      dropdown.appendChild(li);
+    });
+  };
+
+  /*  Mostrar todas al enfocar */
+  input.addEventListener("focus", () => {
+    updateDropdown();
+  });
+
+  /* Actualizar mientras escribe */
+  input.addEventListener("input", () => {
+    const search = input.value.trim();
+    updateDropdown(search);
+  });
+
+  /* Ocultar al hacer clic fuera */
+  document.addEventListener("click", (e) => {
+    if (!parent.contains(e.target)) {
+      dropdown.innerHTML = "";
+    }
+  });
+}
+export { getInfo, renderCards, setupModalHandlers, setupLocationDropdown };

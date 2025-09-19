@@ -12,10 +12,10 @@
     <!-- Modal -->
     <div
       id="modal"
-      class="fixed w-full h-full bg-black/50 hidden flex items-start sm:items-center justify-center"
+      class="fixed w-full h-full bg-black/50 hidden flex items-start"
     >
       <div
-        id=""
+        id="modal_in"
         class="bg-white w-full h-[90%] text-black rounded-2xl p-6 flex flex-col gap-6"
       >
         <!-- Modal header -->
@@ -43,10 +43,10 @@
           class="flex flex-col justify-center w-full text-[0.8rem] text-[#9A9C9A] sm:flex-row sm:justify-between"
         >
           <div
-            class="flex flex-col items-center shadow-sm rounded-xl w-full h-full sm:flex-row sm:w-[50%]"
+            class="flex flex-col items-center shadow-sm rounded-xl w-full h-full sm:flex-row"
           >
             <div
-              class="border-b-1 border-[#DDDDDD] flex flex-col outline-none w-full h-full pl-3 p-2 cursor-pointer sm:w-[50%] sm:border-b-0 sm:border-r-1"
+              class="border-b-1 border-[#DDDDDD] flex flex-col outline-none w-full h-full pl-3 p-2 cursor-pointer sm:border-b-0 sm:border-r-1"
             >
               <label for="miInput" class="text-[0.6rem] font-bold"
                 >LOCATION</label
@@ -59,7 +59,7 @@
               />
             </div>
             <div
-              class="flex flex-col outline-none w-full h-full pl-3 p-2 cursor-pointer sm:w-[50%]"
+              class="flex flex-col border-[#DDDDDD] outline-none w-full h-full pl-3 p-2 cursor-pointer sm:border-r-1"
             >
               <label for="guestInput" class="text-[0.6rem] font-bold"
                 >GUESTS</label
@@ -71,106 +71,66 @@
                 placeholder="Add guests"
               />
             </div>
-          </div>
-          <!-- Search button -->
-          <div
-            class="w-full hidden items-center justify-center sm:flex sm:w-[15%]"
-          >
-            <button
-              class="w-[30%] flex flex-row items-center cursor-pointer justify-center gap-2 bg-[#EB5757] text-white text-[0.8rem] p-1 rounded-2xl sm:w-[80%]"
+            <!-- Search button -->
+            <div
+              id="searchBtn"
+              class="w-full hidden items-center justify-center sm:flex"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="#FFFF"
-                class="size-4"
+              <button
+                class="flex flex-row items-center cursor-pointer justify-center gap-2 bg-[#EB5757] text-white text-[0.8rem] p-1 rounded-2xl"
               >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-                />
-              </svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="#FFFF"
+                  class="size-4"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                  />
+                </svg>
 
-              <span>Search</span>
-            </button>
+                <span>Search</span>
+              </button>
+            </div>
           </div>
         </div>
         <!-- Location information -->
-        <div class="hidden">
-          <!-- Search button -->
-          <div class="w-full flex items-center justify-center">
-            <button
-              class="w-[30%] flex flex-row items-center cursor-pointer justify-center gap-2 bg-[#EB5757] text-white text-[0.8rem] p-1 mt-[20%] rounded-2xl"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="#FFFF"
-                class="size-4"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-                />
-              </svg>
-
-              <span>Search</span>
-            </button>
-          </div>
-        </div>
+        <div id="location_info" class="hidden"></div>
         <!-- Guests information -->
-        <div id="guestDropdownContainer" class="hidden">
-          <!-- Adults Guests information -->
-          <div class="flex flex-col gap-1.5">
-            <span class="text-[0.9rem] font-bold">Adults</span>
-            <span class="text-[0.9rem] text-[#CCCDCC]">Ages 13 or above</span>
-            <!-- Adult Number selected -->
-            <div>
-              <button class="inc_button">-</button>
-              <span class="text-[0.8rem] pr-6 pl-6">4</span>
-              <button class="inc_button">+</button>
-            </div>
-          </div>
-          <!-- Children Guests information -->
-          <div class="flex flex-col gap-1.5">
-            <span class="text-[0.9rem] font-bold">Children</span>
-            <span class="text-[0.9rem] text-[#CCCDCC]">Ages 12 or below</span>
-            <!-- Adult Number selected -->
-            <div>
-              <button class="inc_button">-</button>
-              <span class="text-[0.8rem] pr-6 pl-6">4</span>
-              <button class="inc_button">+</button>
-            </div>
-          </div>
-          <!-- Search button -->
-          <div id="searchBtn" class="w-full flex items-center justify-center">
-            <button
-              class="w-[30%] flex flex-row items-center cursor-pointer justify-center gap-2 bg-[#EB5757] text-white text-[0.8rem] p-1 mt-[20%] rounded-2xl"
+        <div
+          id="guestDropdownContainer"
+          class="hidden flex flex-col gap-4 p-4 sm:ml-[35%]"
+        ></div>
+        <!-- Search button -->
+        <div
+          id="searchBtn"
+          class="w-full flex items-center justify-center sm:hidden"
+        >
+          <button
+            class="w-[30%] flex flex-row items-center cursor-pointer justify-center gap-2 bg-[#EB5757] text-white text-[0.8rem] p-1 rounded-2xl"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="#FFFF"
+              class="size-4"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="#FFFF"
-                class="size-4"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-                />
-              </svg>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+              />
+            </svg>
 
-              <span>Search</span>
-            </button>
-          </div>
+            <span>Search</span>
+          </button>
         </div>
       </div>
     </div>
@@ -192,11 +152,13 @@
       >
         <div class="flex items-center shadow-md rounded-xl w-[100%] h-full">
           <button
+            id="add_location"
             class="search-bar-button border-r-1 border-[#DDDDDD] outline-none w-[40%] h-full pl-1 cursor-pointer"
           >
             Add location
           </button>
           <button
+            id="add_guest"
             class="search-bar-button border-r-1 border-[#DDDDDD] outline-none w-[40%] h-full pl-1 cursor-pointer"
           >
             Add guests
@@ -226,7 +188,7 @@
     <!-- Title -->
     <div class="flex justify-between items-center px-4 mt-6 sm:p-6 sm:mt-0">
       <h2 class="text-xl font-bold">Stays in Finland</h2>
-      <span class="text-gray-500">12+ stays</span>
+      <span id="staysCount" class="text-gray-500">12+ stays</span>
     </div>
 
     <!-- Cards -->

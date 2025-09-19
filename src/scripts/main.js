@@ -3,15 +3,17 @@ import {
   renderCards,
   setupModalHandlers,
   setupLocationDropdown,
-} from "./utils.js";
+  setupGuestsFilter,
+} from './utils.js'
 
-let staysArray = [];
+let staysArray = []
 
 const main = async () => {
-  staysArray = await getInfo();
-  renderCards(staysArray);
-};
+  staysArray = await getInfo()
+  renderCards(staysArray)
+}
 
-main();
-setupModalHandlers();
-setupLocationDropdown();
+main()
+setupModalHandlers()
+setupLocationDropdown()
+setupGuestsFilter(renderCards)
